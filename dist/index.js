@@ -49,12 +49,12 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  CutlassEditor: () => CutlassEditor,
+  kutlassEditor: () => kutlassEditor,
   setFFmpegPaths: () => setFFmpegPaths
 });
 module.exports = __toCommonJS(index_exports);
 
-// src/CutlassEditor.tsx
+// src/kutlassEditor.tsx
 var import_react14 = require("react");
 
 // components/editor/Editor.tsx
@@ -801,7 +801,7 @@ function useExport() {
     (url) => {
       const a = document.createElement("a");
       a.href = url;
-      a.download = `cutlass-export.${settings.format}`;
+      a.download = `kutlass-export.${settings.format}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -3207,9 +3207,9 @@ function Editor() {
   );
 }
 
-// src/CutlassEditor.tsx
+// src/kutlassEditor.tsx
 var import_jsx_runtime16 = require("react/jsx-runtime");
-function CutlassEditor({
+function kutlassEditor({
   className,
   style,
   exportSettings,
@@ -3243,7 +3243,7 @@ function CutlassEditor({
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  CutlassEditor,
+  kutlassEditor,
   setFFmpegPaths
 });
 //# sourceMappingURL=index.js.map

@@ -6,7 +6,7 @@ Kutlass is a fully client-side browser video editor shipped as an npm React comp
 
 ## Architecture
 
-- **Entry point**: `src/index.ts` exports `<CutlassEditor />` and `setFFmpegPaths`
+- **Entry point**: `src/index.ts` exports `<kutlassEditor />` and `setFFmpegPaths`
 - **Editor shell**: `components/editor/Editor.tsx` — tool switching, export overlay, drag-and-drop
 - **Preview**: `components/editor/preview/PreviewPanel.tsx` — canvas rendering, zoom, pan
 - **Panels**: `components/editor/panels/` — TrimPanel, FinetunePanel, FilterPanel, CropPanel, ResizePanel, AnnotatePanel, StickerPanel
@@ -40,4 +40,4 @@ The demo app uses Next.js 16. This version has breaking changes — APIs, conven
 - All components use `"use client"` — this is a client-only library.
 - FFmpeg WASM paths are configurable via `setFFmpegPaths()` — never hardcode paths in library code.
 - Consumers must set COOP/COEP/CORP headers for FFmpeg WASM to work.
-- The Zustand store is a singleton — only one `<CutlassEditor />` instance per page is supported.
+- The Zustand store is a singleton — only one `<kutlassEditor />` instance per page is supported.

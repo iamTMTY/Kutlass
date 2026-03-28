@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 /* Custom scrollbar for the editor */
-.cutlass-editor ::-webkit-scrollbar {
+.kutlass-editor ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-.cutlass-editor ::-webkit-scrollbar-track {
+.kutlass-editor ::-webkit-scrollbar-track {
   background: transparent;
 }
-.cutlass-editor ::-webkit-scrollbar-thumb {
+.kutlass-editor ::-webkit-scrollbar-thumb {
   background: #3f3f46;
   border-radius: 3px;
 }
-.cutlass-editor ::-webkit-scrollbar-thumb:hover {
+.kutlass-editor ::-webkit-scrollbar-thumb:hover {
   background: #52525b;
 }
 
 /* Range input reset */
-.cutlass-editor input[type="range"] {
+.kutlass-editor input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;

@@ -20,7 +20,7 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 
-// src/CutlassEditor.tsx
+// src/kutlassEditor.tsx
 import { useEffect as useEffect6 } from "react";
 
 // components/editor/Editor.tsx
@@ -767,7 +767,7 @@ function useExport() {
     (url) => {
       const a = document.createElement("a");
       a.href = url;
-      a.download = `cutlass-export.${settings.format}`;
+      a.download = `kutlass-export.${settings.format}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -3173,9 +3173,9 @@ function Editor() {
   );
 }
 
-// src/CutlassEditor.tsx
+// src/kutlassEditor.tsx
 import { jsx as jsx16 } from "react/jsx-runtime";
-function CutlassEditor({
+function kutlassEditor({
   className,
   style,
   exportSettings,
@@ -3208,7 +3208,7 @@ function CutlassEditor({
   );
 }
 export {
-  CutlassEditor,
+  kutlassEditor,
   setFFmpegPaths
 };
 //# sourceMappingURL=index.mjs.map

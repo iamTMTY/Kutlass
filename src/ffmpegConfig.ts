@@ -12,11 +12,11 @@ const config: FFmpegPaths = {
 
 /**
  * Configure where the FFmpeg WASM files are served from.
- * Must be called before rendering `<CutlassEditor />`.
+ * Must be called before rendering `<kutlassEditor />`.
  *
  * @example
  * ```ts
- * import { setFFmpegPaths } from "cutlass";
+ * import { setFFmpegPaths } from "kutlass";
  * setFFmpegPaths({
  *   coreJS: "/vendor/ffmpeg-core.js",
  *   coreWasm: "/vendor/ffmpeg-core.wasm",

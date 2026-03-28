@@ -1,7 +1,7 @@
 import { type FFmpegPaths } from "./ffmpegConfig";
 import type { ExportSettings } from "@/types/editor";
 import type { Tool } from "@/components/editor/Sidebar";
-export interface CutlassEditorProps {
+export interface kutlassEditorProps {
     /** CSS class name for the outer container */
     className?: string;
     /** Inline styles for the outer container */
@@ -18,5 +18,5 @@ export interface CutlassEditorProps {
      */
     onExportComplete?: (blob: Blob) => void;
 }
-export declare function CutlassEditor({ className, style, exportSettings, ffmpegPaths, onExportComplete, }: CutlassEditorProps): import("react/jsx-runtime").JSX.Element;
-//# sourceMappingURL=CutlassEditor.d.ts.map
+export declare function kutlassEditor({ className, style, exportSettings, ffmpegPaths, onExportComplete, }: kutlassEditorProps): import("react/jsx-runtime").JSX.Element;
+//# sourceMappingURL=kutlassEditor.d.ts.map

@@ -75,7 +75,7 @@ export function useExport() {
     (url: string) => {
       const a = document.createElement("a");
       a.href = url;
-      a.download = `cutlass-export.${settings.format}`;
+      a.download = `kutlass-export.${settings.format}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

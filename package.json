@@ -11,7 +11,7 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles.css": "./dist/cutlass.css"
+    "./styles.css": "./dist/kutlass.css"
   },
   "files": [
     "dist",
@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "next dev",
     "build:app": "next build",
-    "build:lib": "tsup && tsc -p tsconfig.lib.json && npx @tailwindcss/cli -i src/cutlass.css -o dist/cutlass.css --minify",
+    "build:lib": "tsup && tsc -p tsconfig.lib.json && npx @tailwindcss/cli -i src/kutlass.css -o dist/kutlass.css --minify",
     "build": "npm run build:lib",
     "start": "next start",
     "lint": "eslint",
