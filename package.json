@@ -1,6 +1,6 @@
 {
   "name": "kutlass",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A fully client-side browser video editor React component",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -38,10 +38,18 @@
     "react-dom": ">=18"
   },
   "peerDependenciesMeta": {
-    "framer-motion": { "optional": false },
-    "@ffmpeg/core": { "optional": false },
-    "@ffmpeg/ffmpeg": { "optional": false },
-    "@ffmpeg/util": { "optional": false }
+    "framer-motion": {
+      "optional": false
+    },
+    "@ffmpeg/core": {
+      "optional": false
+    },
+    "@ffmpeg/ffmpeg": {
+      "optional": false
+    },
+    "@ffmpeg/util": {
+      "optional": false
+    }
   },
   "dependencies": {
     "clsx": "^2.1.1",
