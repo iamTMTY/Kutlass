@@ -8,7 +8,7 @@ import { setFFmpegPaths, type FFmpegPaths } from "./ffmpegConfig";
 import type { ExportSettings } from "@/types/editor";
 import type { Tool } from "@/components/editor/Sidebar";
 
-export interface kutlassEditorProps {
+export interface KutlassProps {
   /** CSS class name for the outer container */
   className?: string;
   /** Inline styles for the outer container */
@@ -26,13 +26,13 @@ export interface kutlassEditorProps {
   onExportComplete?: (blob: Blob) => void;
 }
 
-export function kutlassEditor({
+export function Kutlass({
   className,
   style,
   exportSettings,
   ffmpegPaths,
   onExportComplete,
-}: kutlassEditorProps) {
+}: KutlassProps) {
   // Configure FFmpeg WASM paths before any export runs
   useEffect(() => {
     if (ffmpegPaths) setFFmpegPaths(ffmpegPaths);

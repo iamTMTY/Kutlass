@@ -11,7 +11,7 @@ This is an Nx monorepo with two packages:
 
 ## Architecture
 
-- **Entry point**: `packages/kutlass/src/index.ts` exports `<kutlassEditor />` and `setFFmpegPaths`
+- **Entry point**: `packages/kutlass/src/index.ts` exports `<Kutlass />` and `setFFmpegPaths`
 - **Editor shell**: `packages/kutlass/components/editor/Editor.tsx` — tool switching, export overlay, drag-and-drop
 - **Preview**: `packages/kutlass/components/editor/preview/PreviewPanel.tsx` — canvas rendering, zoom, pan
 - **Panels**: `packages/kutlass/components/editor/panels/` — TrimPanel, FinetunePanel, FilterPanel, CropPanel, ResizePanel, AnnotatePanel, StickerPanel
@@ -46,4 +46,4 @@ The demo app uses Next.js 16. This version has breaking changes — APIs, conven
 - All components use `"use client"` — this is a client-only library.
 - FFmpeg WASM paths are configurable via `setFFmpegPaths()` — never hardcode paths in library code.
 - Consumers must set COOP/COEP/CORP headers for FFmpeg WASM to work.
-- The Zustand store is a singleton — only one `<kutlassEditor />` instance per page is supported.
+- The Zustand store is a singleton — only one `<Kutlass />` instance per page is supported.

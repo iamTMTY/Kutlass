@@ -1,6 +1,6 @@
 "use client";
 
-export { kutlassEditor } from "./KutlassEditor";
-export type { kutlassEditorProps } from "./KutlassEditor";
+export { Kutlass } from "./Kutlass";
+export type { KutlassProps } from "./Kutlass";
 export { setFFmpegPaths } from "./ffmpegConfig";
 export type { FFmpegPaths } from "./ffmpegConfig";
