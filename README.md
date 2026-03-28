@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kutlass
 
-## Getting Started
+A fully client-side browser video editor React component. All video processing — decoding, effects, cropping, annotations, and encoding — runs entirely in the browser using WebCodecs and FFmpeg WASM. No server required.
 
-First, run the development server:
+## Features
+
+- Trim, crop, and resize video
+- Brightness, contrast, saturation, rotation, and opacity adjustments
+- Filter presets (Vivid, Warm, Cool, B&W, Fade, Dramatic, Film, Matte)
+- Freehand annotations (pen and eraser)
+- Text and sticker overlays
+- Undo/redo with full history
+- Zoom and pan preview
+- Export to MP4 or WebM
+- Drag-and-drop video import
+
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install kutlass
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Peer dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install react react-dom framer-motion @ffmpeg/ffmpeg @ffmpeg/core @ffmpeg/util
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Quick start
 
-## Learn More
+```tsx
+import { CutlassEditor, setFFmpegPaths } from "kutlass";
+import "kutlass/styles.css";
 
-To learn more about Next.js, take a look at the following resources:
+// Point to where you serve the FFmpeg WASM files
+setFFmpegPaths({
+  coreJS: "/ffmpeg/ffmpeg-core.js",
+  coreWasm: "/ffmpeg/ffmpeg-core.wasm",
+});
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+function App() {
+  return (
+    <CutlassEditor
+      style={{ width: 960, height: 640 }}
+      onExportComplete={(blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "video.mp4";
+        a.click();
+      }}
+    />
+  );
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## FFmpeg WASM setup
 
-## Deploy on Vercel
+Kutlass uses FFmpeg compiled to WebAssembly for video encoding. You need to:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Copy the WASM files to your public directory:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+cp node_modules/kutlass/public/ffmpeg/* public/ffmpeg/
+```
+
+2. Set the required cross-origin headers on your server. FFmpeg WASM requires `SharedArrayBuffer`, which needs these headers:
+
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Resource-Policy: cross-origin
+```
+
+**Next.js example** (`next.config.ts`):
+
+```ts
+const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+          { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+        ],
+      },
+    ];
+  },
+};
+```
+
+## Props
+
+| Prop | Type | Description |
+|---|---|---|
+| `className` | `string` | CSS class for the outer container |
+| `style` | `CSSProperties` | Inline styles for the outer container |
+| `tools` | `Tool[]` | Which tools to show (`trim`, `crop`, `finetune`, `filter`, `annotate`, `sticker`, `resize`) |
+| `exportSettings` | `Partial<ExportSettings>` | Default export settings (`format`, `resolution`, `fps`, `bitrate`) |
+| `ffmpegPaths` | `Partial<FFmpegPaths>` | Override FFmpeg WASM file URLs |
+| `onExportComplete` | `(blob: Blob) => void` | Called with the exported video blob when export finishes |
+
+## API
+
+### `setFFmpegPaths(paths)`
+
+Configure where the FFmpeg WASM files are served from. Must be called before the first export.
+
+```ts
+import { setFFmpegPaths } from "kutlass";
+
+setFFmpegPaths({
+  coreJS: "/vendor/ffmpeg-core.js",
+  coreWasm: "/vendor/ffmpeg-core.wasm",
+});
+```
+
+## License
+
+MIT

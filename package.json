@@ -1,27 +1,75 @@
 {
-  "name": "cutlass",
+  "name": "kutlass",
   "version": "0.1.0",
-  "private": true,
+  "description": "A fully client-side browser video editor React component",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/cutlass.css"
+  },
+  "files": [
+    "dist",
+    "public/ffmpeg"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:app": "next build",
+    "build:lib": "tsup && tsc -p tsconfig.lib.json && npx @tailwindcss/cli -i src/cutlass.css -o dist/cutlass.css --minify",
+    "build": "npm run build:lib",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepublishOnly": "npm run build:lib"
+  },
+  "peerDependencies": {
+    "@ffmpeg/core": "^0.12.0",
+    "@ffmpeg/ffmpeg": "^0.12.0",
+    "@ffmpeg/util": "^0.12.0",
+    "framer-motion": ">=10",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "framer-motion": { "optional": false },
+    "@ffmpeg/core": { "optional": false },
+    "@ffmpeg/ffmpeg": { "optional": false },
+    "@ffmpeg/util": { "optional": false }
   },
   "dependencies": {
-    "next": "16.2.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "clsx": "^2.1.1",
+    "nanoid": "^5.1.7",
+    "tailwind-merge": "^3.5.0",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@ffmpeg/core": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
+    "@tailwindcss/cli": "^4.2.2",
     "@tailwindcss/postcss": "^4",
+    "@tldraw/tldraw": "^4.5.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.0",
+    "framer-motion": "^12.38.0",
+    "mp4box": "^2.3.0",
+    "next": "16.2.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsup": "^8.5.1",
+    "typescript": "^5",
+    "zundo": "^2.3.0"
   }
 }
