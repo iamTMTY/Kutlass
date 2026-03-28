@@ -29,7 +29,7 @@ npm install react react-dom framer-motion @ffmpeg/ffmpeg @ffmpeg/core @ffmpeg/ut
 ## Quick start
 
 ```tsx
-import { kutlassEditor, setFFmpegPaths } from "kutlass";
+import { Kutlass, setFFmpegPaths } from "kutlass";
 import "kutlass/styles.css";
 
 // Point to where you serve the FFmpeg WASM files
@@ -40,7 +40,7 @@ setFFmpegPaths({
 
 function App() {
   return (
-    <kutlassEditor
+    <Kutlass
       style={{ width: 960, height: 640 }}
       onExportComplete={(blob) => {
         const url = URL.createObjectURL(blob);
