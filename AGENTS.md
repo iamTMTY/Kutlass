@@ -4,17 +4,22 @@
 
 Kutlass is a fully client-side browser video editor shipped as an npm React component library (`kutlass`). All video processing runs in the browser — no server-side code exists in this project.
 
+This is an Nx monorepo with two packages:
+
+- **`packages/kutlass`** — the published library
+- **`apps/demo`** — Next.js demo app that consumes the library
+
 ## Architecture
 
-- **Entry point**: `src/index.ts` exports `<kutlassEditor />` and `setFFmpegPaths`
-- **Editor shell**: `components/editor/Editor.tsx` — tool switching, export overlay, drag-and-drop
-- **Preview**: `components/editor/preview/PreviewPanel.tsx` — canvas rendering, zoom, pan
-- **Panels**: `components/editor/panels/` — TrimPanel, FinetunePanel, FilterPanel, CropPanel, ResizePanel, AnnotatePanel, StickerPanel
-- **State**: Zustand store in `store/editorStore.ts`, slices in `store/slices/`
-- **Video decoding**: `lib/webcodecs/VideoDecoder.ts` — WebCodecs via `<video>` element + `VideoFrame`
-- **Frame rendering**: `lib/webcodecs/FrameRenderer.ts` — OffscreenCanvas 2D with CSS-equivalent filters
-- **Export**: `lib/ffmpeg/exportPipeline.ts` — frame-by-frame canvas rendering → JPEG sequence → FFmpeg WASM encoding
-- **FFmpeg**: `lib/ffmpeg/ffmpegClient.ts` — loads WASM from configurable paths (`src/ffmpegConfig.ts`)
+- **Entry point**: `packages/kutlass/src/index.ts` exports `<kutlassEditor />` and `setFFmpegPaths`
+- **Editor shell**: `packages/kutlass/components/editor/Editor.tsx` — tool switching, export overlay, drag-and-drop
+- **Preview**: `packages/kutlass/components/editor/preview/PreviewPanel.tsx` — canvas rendering, zoom, pan
+- **Panels**: `packages/kutlass/components/editor/panels/` — TrimPanel, FinetunePanel, FilterPanel, CropPanel, ResizePanel, AnnotatePanel, StickerPanel
+- **State**: Zustand store in `packages/kutlass/store/editorStore.ts`, slices in `packages/kutlass/store/slices/`
+- **Video decoding**: `packages/kutlass/lib/webcodecs/VideoDecoder.ts` — WebCodecs via `<video>` element + `VideoFrame`
+- **Frame rendering**: `packages/kutlass/lib/webcodecs/FrameRenderer.ts` — OffscreenCanvas 2D with CSS-equivalent filters
+- **Export**: `packages/kutlass/lib/ffmpeg/exportPipeline.ts` — frame-by-frame canvas rendering → JPEG sequence → FFmpeg WASM encoding
+- **FFmpeg**: `packages/kutlass/lib/ffmpeg/ffmpegClient.ts` — loads WASM from configurable paths (`packages/kutlass/src/ffmpegConfig.ts`)
 
 ## Key patterns
 
@@ -26,9 +31,10 @@ Kutlass is a fully client-side browser video editor shipped as an npm React comp
 
 ## Build
 
-- `npm run build:lib` — tsup (ESM + CJS) + tsc (declarations) + Tailwind CLI (prebuilt CSS)
-- `npm run dev` — Next.js demo app for local development
-- `npm run build:app` — Next.js demo app production build
+- `npm run build:lib` or `nx run kutlass:build` — tsup (ESM + CJS) + tsc (declarations) + Tailwind CLI (prebuilt CSS)
+- `npm run dev` or `nx run kutlass-demo:dev` — Next.js demo app for local development
+- `npm run build:app` or `nx run kutlass-demo:build` — Next.js demo app production build
+- `npm run build` or `nx run-many -t build` — build all packages
 
 ## Rules
 
@@ -36,7 +42,7 @@ Kutlass is a fully client-side browser video editor shipped as an npm React comp
 The demo app uses Next.js 16. This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any Next.js app code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-- The library source (`src/`, `components/`, `hooks/`, `lib/`, `store/`, `types/`) must remain framework-agnostic React. Do not introduce Next.js-specific APIs in library code.
+- The library source (`packages/kutlass/src/`, `components/`, `hooks/`, `lib/`, `store/`, `types/`) must remain framework-agnostic React. Do not introduce Next.js-specific APIs in library code.
 - All components use `"use client"` — this is a client-only library.
 - FFmpeg WASM paths are configurable via `setFFmpegPaths()` — never hardcode paths in library code.
 - Consumers must set COOP/COEP/CORP headers for FFmpeg WASM to work.
