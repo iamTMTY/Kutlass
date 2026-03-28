@@ -19,4 +19,4 @@ export interface kutlassEditorProps {
     onExportComplete?: (blob: Blob) => void;
 }
 export declare function kutlassEditor({ className, style, exportSettings, ffmpegPaths, onExportComplete, }: kutlassEditorProps): import("react/jsx-runtime").JSX.Element;
-//# sourceMappingURL=kutlassEditor.d.ts.map
+//# sourceMappingURL=KutlassEditor.d.ts.map

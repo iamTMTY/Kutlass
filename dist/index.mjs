@@ -20,7 +20,7 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 
-// src/kutlassEditor.tsx
+// src/KutlassEditor.tsx
 import { useEffect as useEffect6 } from "react";
 
 // components/editor/Editor.tsx
@@ -3173,7 +3173,7 @@ function Editor() {
   );
 }
 
-// src/kutlassEditor.tsx
+// src/KutlassEditor.tsx
 import { jsx as jsx16 } from "react/jsx-runtime";
 function kutlassEditor({
   className,

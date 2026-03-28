@@ -54,7 +54,7 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 
-// src/kutlassEditor.tsx
+// src/KutlassEditor.tsx
 var import_react14 = require("react");
 
 // components/editor/Editor.tsx
@@ -3207,7 +3207,7 @@ function Editor() {
   );
 }
 
-// src/kutlassEditor.tsx
+// src/KutlassEditor.tsx
 var import_jsx_runtime16 = require("react/jsx-runtime");
 function kutlassEditor({
   className,
