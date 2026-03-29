@@ -57,21 +57,21 @@ export function Timeline() {
   );
 
   return (
-    <div ref={outerRef} className="flex flex-col bg-zinc-950 border-t border-zinc-800 select-none" style={{ minHeight: 160 }}>
+    <div ref={outerRef} className="flex flex-col border-t select-none" style={{ minHeight: 160, background: "var(--kt-bg-deep)", borderColor: "var(--kt-border-strong)" }}>
       {/* Zoom controls */}
-      <div className="flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800 bg-zinc-900">
-        <span className="text-xs text-zinc-500">Timeline</span>
+      <div className="flex items-center gap-2 px-3 py-1.5 border-b" style={{ borderColor: "var(--kt-border-strong)", background: "var(--kt-bg-surface)" }}>
+        <span className="text-xs" style={{ color: "var(--kt-text-muted)" }}>Timeline</span>
         <div className="ml-auto flex items-center gap-1.5">
-          <span className="text-xs text-zinc-500">{Math.round(zoom)}px/s</span>
+          <span className="text-xs" style={{ color: "var(--kt-text-muted)" }}>{Math.round(zoom)}px/s</span>
           <button
             onClick={() => setZoom(zoom / 1.25)}
-            className="w-5 h-5 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded text-xs transition-colors"
+            className="w-5 h-5 flex items-center justify-center kt-btn-subtle rounded text-xs transition-colors"
           >
             -
           </button>
           <button
             onClick={() => setZoom(zoom * 1.25)}
-            className="w-5 h-5 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded text-xs transition-colors"
+            className="w-5 h-5 flex items-center justify-center kt-btn-subtle rounded text-xs transition-colors"
           >
             +
           </button>
@@ -91,8 +91,8 @@ export function Timeline() {
           {/* Ruler + tracks column layout */}
           <div className="flex flex-col flex-1">
             {/* Ruler row */}
-            <div className="flex h-7 border-b border-zinc-800 sticky top-0 bg-zinc-950 z-10">
-              <div className="w-24 shrink-0 border-r border-zinc-800" />
+            <div className="flex h-7 border-b sticky top-0 z-10" style={{ borderColor: "var(--kt-border-strong)", background: "var(--kt-bg-deep)" }}>
+              <div className="w-24 shrink-0 border-r" style={{ borderColor: "var(--kt-border-strong)" }} />
               <div className="relative flex-1 overflow-hidden">
                 <TimelineRuler scrollLeft={scrollLeft} containerWidth={containerWidth - TRACK_LABEL_WIDTH} />
                 <PlayheadScrubber totalHeight={totalTracksHeight + 28} />

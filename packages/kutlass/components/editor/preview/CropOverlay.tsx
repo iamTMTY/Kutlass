@@ -132,8 +132,8 @@ export function CropOverlay() {
     position: "absolute",
     width: 12,
     height: 12,
-    background: "white",
-    border: "2px solid rgba(251,191,36,0.9)",
+    background: "var(--kt-slider-thumb)",
+    border: "2px solid var(--kt-accent-strong-border)",
     borderRadius: 2,
     cursor,
     transform: "translate(-50%, -50%)",
@@ -160,10 +160,10 @@ export function CropOverlay() {
       style={{ zIndex: 20 }}
     >
       {/* Dark mask — outside crop region (pointer-events-none so handles beneath are reachable) */}
-      <div className="absolute pointer-events-none" style={{ top: 0, left: 0, right: 0, height: `${y}%`, background: "rgba(0,0,0,0.55)" }} />
-      <div className="absolute pointer-events-none" style={{ bottom: 0, left: 0, right: 0, height: `${100 - y - h}%`, background: "rgba(0,0,0,0.55)" }} />
-      <div className="absolute pointer-events-none" style={{ top: `${y}%`, left: 0, width: `${x}%`, height: `${h}%`, background: "rgba(0,0,0,0.55)" }} />
-      <div className="absolute pointer-events-none" style={{ top: `${y}%`, right: 0, width: `${100 - x - w}%`, height: `${h}%`, background: "rgba(0,0,0,0.55)" }} />
+      <div className="absolute pointer-events-none" style={{ top: 0, left: 0, right: 0, height: `${y}%`, background: "var(--kt-crop-mask)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: 0, left: 0, right: 0, height: `${100 - y - h}%`, background: "var(--kt-crop-mask)" }} />
+      <div className="absolute pointer-events-none" style={{ top: `${y}%`, left: 0, width: `${x}%`, height: `${h}%`, background: "var(--kt-crop-mask)" }} />
+      <div className="absolute pointer-events-none" style={{ top: `${y}%`, right: 0, width: `${100 - x - w}%`, height: `${h}%`, background: "var(--kt-crop-mask)" }} />
 
       {/* Crop region border + move handle */}
       <div
@@ -173,7 +173,7 @@ export function CropOverlay() {
           top: `${y}%`,
           width: `${w}%`,
           height: `${h}%`,
-          border: "2px solid rgba(251,191,36,0.9)",
+          border: "2px solid var(--kt-accent-strong-border)",
           boxSizing: "border-box",
           cursor: "move",
           zIndex: 22,
@@ -182,10 +182,10 @@ export function CropOverlay() {
       >
         {/* Rule-of-thirds grid */}
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.3 }}>
-          <div className="absolute bg-white/50" style={{ left: "33.3%", top: 0, bottom: 0, width: 1 }} />
-          <div className="absolute bg-white/50" style={{ left: "66.6%", top: 0, bottom: 0, width: 1 }} />
-          <div className="absolute bg-white/50" style={{ top: "33.3%", left: 0, right: 0, height: 1 }} />
-          <div className="absolute bg-white/50" style={{ top: "66.6%", left: 0, right: 0, height: 1 }} />
+          <div className="absolute" style={{ background: "var(--kt-border-input)", left: "33.3%", top: 0, bottom: 0, width: 1 }} />
+          <div className="absolute" style={{ background: "var(--kt-border-input)", left: "66.6%", top: 0, bottom: 0, width: 1 }} />
+          <div className="absolute" style={{ background: "var(--kt-border-input)", top: "33.3%", left: 0, right: 0, height: 1 }} />
+          <div className="absolute" style={{ background: "var(--kt-border-input)", top: "66.6%", left: 0, right: 0, height: 1 }} />
         </div>
       </div>
 

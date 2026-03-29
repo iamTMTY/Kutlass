@@ -17,19 +17,19 @@ export function AnnotatePanel() {
   const strokes = useEditorStore((s) => s.strokes);
 
   return (
-    <div className="shrink-0 border-t border-white/[0.06] bg-[#1a1a1a] px-5 py-3" style={{ height: 90 }}>
-      <div className="flex items-center gap-6 h-full">
+    <div className="shrink-0 border-t px-3 md:px-5 py-3" style={{ borderColor: "var(--kt-border)", background: "var(--kt-bg-panel)" }}>
+      <div className="flex flex-wrap md:flex-nowrap items-center gap-3 md:gap-6">
 
         {/* Tool selector */}
         <div className="flex flex-col gap-1">
-          <span className="text-[9px] font-semibold text-zinc-500 uppercase tracking-wider">Tool</span>
+          <span className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Tool</span>
           <div className="flex gap-1">
             <button
               onClick={() => setDrawingTool("pen")}
               className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
                 drawingTool === "pen"
-                  ? "bg-amber-400 text-black"
-                  : "bg-white/[0.07] text-zinc-400 hover:text-zinc-200"
+                  ? "kt-btn-accent"
+                  : "kt-btn-subtle"
               }`}
             >
               Pen
@@ -38,8 +38,8 @@ export function AnnotatePanel() {
               onClick={() => setDrawingTool("eraser")}
               className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
                 drawingTool === "eraser"
-                  ? "bg-amber-400 text-black"
-                  : "bg-white/[0.07] text-zinc-400 hover:text-zinc-200"
+                  ? "kt-btn-accent"
+                  : "kt-btn-subtle"
               }`}
             >
               Eraser
@@ -49,7 +49,7 @@ export function AnnotatePanel() {
 
         {/* Color swatches */}
         <div className="flex flex-col gap-1">
-          <span className="text-[9px] font-semibold text-zinc-500 uppercase tracking-wider">Color</span>
+          <span className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Color</span>
           <div className="flex gap-1.5">
             {COLORS.map((c) => (
               <button
@@ -58,8 +58,8 @@ export function AnnotatePanel() {
                 className="w-5 h-5 rounded-full border-2 transition-transform hover:scale-110"
                 style={{
                   background: c,
-                  borderColor: drawingColor === c ? "white" : "transparent",
-                  boxShadow: c === "#ffffff" ? "inset 0 0 0 1px rgba(255,255,255,0.3)" : undefined,
+                  borderColor: drawingColor === c ? "var(--kt-text-primary)" : "transparent",
+                  boxShadow: c === "#ffffff" ? "inset 0 0 0 1px var(--kt-border)" : undefined,
                 }}
               />
             ))}
@@ -68,19 +68,20 @@ export function AnnotatePanel() {
 
         {/* Stroke width */}
         <div className="flex flex-col gap-1">
-          <span className="text-[9px] font-semibold text-zinc-500 uppercase tracking-wider">Width</span>
+          <span className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Width</span>
           <div className="flex gap-1 items-center">
             {WIDTHS.map((w) => (
               <button
                 key={w}
                 onClick={() => setDrawingWidth(w)}
                 className={`flex items-center justify-center w-8 h-7 rounded transition-colors ${
-                  drawingWidth === w ? "bg-amber-400/20 ring-1 ring-amber-400" : "bg-white/[0.07] hover:bg-white/[0.12]"
+                  drawingWidth === w ? "" : "kt-btn-subtle"
                 }`}
+                style={drawingWidth === w ? { background: "var(--kt-accent-subtle-bg)", boxShadow: "inset 0 0 0 1px var(--kt-accent)" } : undefined}
               >
                 <div
-                  className="rounded-full bg-white"
-                  style={{ width: Math.min(w * 2, 20), height: Math.min(w / 2 + 2, 8) }}
+                  className="rounded-full"
+                  style={{ background: "var(--kt-slider-thumb)", width: Math.min(w * 2, 20), height: Math.min(w / 2 + 2, 8) }}
                 />
               </button>
             ))}
@@ -88,20 +89,21 @@ export function AnnotatePanel() {
         </div>
 
         {/* Actions */}
-        <div className="flex flex-col gap-1 ml-auto">
-          <span className="text-[9px] font-semibold text-zinc-500 uppercase tracking-wider">Actions</span>
+        <div className="flex flex-col gap-1 md:ml-auto">
+          <span className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Actions</span>
           <div className="flex gap-1">
             <button
               onClick={undoStroke}
               disabled={strokes.length === 0}
-              className="px-3 py-1.5 rounded text-xs font-medium bg-white/[0.07] text-zinc-400 hover:text-zinc-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1.5 rounded text-xs font-medium kt-btn-subtle disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               Undo
             </button>
             <button
               onClick={clearStrokes}
               disabled={strokes.length === 0}
-              className="px-3 py-1.5 rounded text-xs font-medium bg-white/[0.07] text-red-400/80 hover:text-red-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1.5 rounded text-xs font-medium kt-btn-subtle disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              style={{ color: "var(--kt-danger)" }}
             >
               Clear
             </button>

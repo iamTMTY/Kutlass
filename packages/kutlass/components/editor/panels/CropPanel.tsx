@@ -65,13 +65,14 @@ export function CropPanel() {
     effects.cropX === 0 && effects.cropY === 0 && effects.cropW === 1 && effects.cropH === 1;
 
   return (
-    <div className="shrink-0 border-t border-white/[0.06] bg-[#1a1a1a] px-5 py-3" style={{ height: 100 }}>
+    <div className="shrink-0 border-t px-3 md:px-5 py-3" style={{ borderColor: "var(--kt-border)", background: "var(--kt-bg-panel)" }}>
       <div className="flex items-center justify-between mb-2.5">
-        <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Aspect Ratio</span>
+        <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Aspect Ratio</span>
         {!isDefaultCrop && (
           <button
             onClick={resetCrop}
-            className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="text-[11px] transition-colors"
+            style={{ color: "var(--kt-text-muted)" }}
           >
             Reset
           </button>
@@ -107,19 +108,14 @@ export function CropPanel() {
             <button
               key={preset.label}
               onClick={() => applyCrop(preset.ratio)}
-              className="px-2.5 py-1 rounded text-xs font-medium transition-colors"
-              style={{
-                background: isActive ? "rgba(251,191,36,0.15)" : "rgba(255,255,255,0.05)",
-                color: isActive ? "rgb(251,191,36)" : "rgb(161,161,170)",
-                border: `1px solid ${isActive ? "rgba(251,191,36,0.4)" : "transparent"}`,
-              }}
+              className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${isActive ? "kt-chip-active" : "kt-chip"}`}
             >
               {preset.label}
             </button>
           );
         })}
       </div>
-      <p className="text-[10px] text-zinc-600 mt-2">Drag handles in preview to adjust crop freely</p>
+      <p className="text-[10px] mt-2" style={{ color: "var(--kt-text-faint)" }}>Drag handles in preview to adjust crop freely</p>
     </div>
   );
 }

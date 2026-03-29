@@ -19,13 +19,15 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center gap-1.5 font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-zinc-900 disabled:opacity-40 disabled:cursor-not-allowed";
+    "inline-flex items-center gap-1.5 font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed";
 
   const variants = {
-    primary: "bg-violet-600 hover:bg-violet-500 text-white",
-    ghost: "text-zinc-300 hover:text-white hover:bg-white/10",
-    danger: "text-red-400 hover:text-red-300 hover:bg-red-500/10",
+    primary: "kt-btn-accent",
+    ghost: "kt-btn-ghost",
+    danger: "kt-btn-ghost",
   };
+
+  const dangerStyle = variant === "danger" ? { color: "var(--kt-danger)" } : undefined;
 
   const sizes = {
     sm: "px-2 py-1 text-xs",
@@ -37,6 +39,7 @@ export function Button({
     <motion.button
       whileTap={{ scale: 0.96 }}
       className={cn(base, variants[variant], sizes[size], className)}
+      style={dangerStyle}
       onClick={props.onClick}
       disabled={props.disabled}
       type={props.type}

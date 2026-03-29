@@ -21,15 +21,15 @@ export function TrackRow({ track, totalWidth }: TrackRowProps) {
   const clips = useEditorStore(useShallow((s) => s.clips.filter((c) => c.trackId === track.id)));
 
   return (
-    <div className="flex h-12 border-b border-zinc-800/50">
+    <div className="flex h-12 border-b" style={{ borderColor: "var(--kt-border)" }}>
       {/* Track label */}
-      <div className="w-24 shrink-0 flex items-center gap-2 px-3 border-r border-zinc-800 bg-zinc-900/50">
+      <div className="w-24 shrink-0 flex items-center gap-2 px-3 border-r" style={{ borderColor: "var(--kt-border-strong)", background: "var(--kt-bg-surface)" }}>
         <span className="text-sm">{TRACK_ICONS[track.type] ?? "?"}</span>
-        <span className="text-xs text-zinc-400 truncate">{track.name}</span>
+        <span className="text-xs truncate" style={{ color: "var(--kt-text-tertiary)" }}>{track.name}</span>
       </div>
 
       {/* Clip area */}
-      <div className="relative flex-1 bg-zinc-900/20 overflow-hidden" style={{ width: totalWidth }}>
+      <div className="relative flex-1 overflow-hidden" style={{ width: totalWidth, background: "var(--kt-bg-deep)" }}>
         {clips.map((clip) => (
           <ClipBlock key={clip.id} clip={clip} />
         ))}

@@ -23,13 +23,13 @@ export function TopBar() {
   const zoomPercent = Math.round((zoom / 80) * 100);
 
   return (
-    <div className="flex items-center h-11 px-3 shrink-0 border-b border-white/[0.06]">
+    <div className="flex items-center h-11 px-2 md:px-3 shrink-0 border-b" style={{ borderColor: "var(--kt-border)" }}>
       {/* History */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-0.5 md:gap-1">
         <button
           onClick={undo}
           disabled={!canUndo}
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="kt-btn-ghost w-8 h-8 flex items-center justify-center rounded-lg transition-colors"
           title="Undo (⌘Z)"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -39,7 +39,7 @@ export function TopBar() {
         <button
           onClick={redo}
           disabled={!canRedo}
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="kt-btn-ghost w-8 h-8 flex items-center justify-center rounded-lg transition-colors"
           title="Redo (⌘⇧Z)"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -48,27 +48,27 @@ export function TopBar() {
         </button>
       </div>
 
-      {/* Zoom */}
-      <div className="flex items-center gap-1 mx-auto">
+      {/* Zoom — hidden on mobile */}
+      <div className="hidden md:flex items-center gap-1 mx-auto">
         <button
           onClick={() => setZoom(zoom / 1.25)}
-          className="w-7 h-7 flex items-center justify-center rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition-colors text-base leading-none"
+          className="kt-btn-ghost w-7 h-7 flex items-center justify-center rounded-lg transition-colors text-base leading-none"
         >
           -
         </button>
-        <span className="text-xs text-zinc-300 font-medium w-10 text-center tabular-nums">
+        <span className="text-xs font-medium w-10 text-center tabular-nums" style={{ color: "var(--kt-text-secondary)" }}>
           {zoomPercent}%
         </span>
         <button
           onClick={() => setZoom(zoom * 1.25)}
-          className="w-7 h-7 flex items-center justify-center rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition-colors text-base leading-none"
+          className="kt-btn-ghost w-7 h-7 flex items-center justify-center rounded-lg transition-colors text-base leading-none"
         >
           +
         </button>
       </div>
 
       {/* Upload & Done */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 md:gap-2 ml-auto">
         {/* Hidden file input for upload */}
         <input
           ref={fileInputRef}
@@ -85,15 +85,16 @@ export function TopBar() {
           <>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="px-3 h-8 rounded-lg bg-white/7 hover:bg-white/12 text-zinc-300 text-sm font-medium transition-colors flex items-center gap-1.5"
+              className="kt-btn-import px-2 md:px-3 h-8 rounded-lg text-xs md:text-sm font-medium transition-colors flex items-center gap-1.5"
               title="Import new video"
             >
-              Import Video
+              <span className="hidden md:inline">Import Video</span>
+              <span className="md:hidden">Import</span>
             </button>
             <button
               disabled={isExporting}
               onClick={startExport}
-              className="px-4 h-8 rounded-lg bg-amber-400 hover:bg-amber-300 text-zinc-900 text-sm font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="kt-btn-accent px-4 h-8 rounded-lg text-sm font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Done
             </button>

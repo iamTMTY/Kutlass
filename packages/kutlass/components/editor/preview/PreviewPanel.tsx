@@ -110,8 +110,8 @@ export function PreviewPanel({ activeTool }: PreviewPanelProps) {
 
   return (
     <div
-      className="relative flex-1 flex items-center justify-center bg-black overflow-hidden min-h-0"
-      style={{ cursor: previewScale > 1 ? (isPanning ? "grabbing" : "grab") : "default" }}
+      className="relative flex-1 flex items-center justify-center overflow-hidden min-h-0"
+      style={{ cursor: previewScale > 1 ? (isPanning ? "grabbing" : "grab") : "default", background: "var(--kt-bg-preview)" }}
       onPointerDown={handlePanDown}
       onPointerMove={handlePanMove}
       onPointerUp={handlePanUp}
@@ -127,8 +127,8 @@ export function PreviewPanel({ activeTool }: PreviewPanelProps) {
 
             {/* Loading spinner — shown until first frame renders */}
             {!previewReady && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
-                <div className="w-8 h-8 border-2 border-zinc-600 border-t-zinc-300 rounded-full animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center z-10" style={{ background: "var(--kt-bg-preview)" }}>
+                <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: "var(--kt-spinner-border)", borderTopColor: "var(--kt-spinner-top)" }} />
               </div>
             )}
 
@@ -147,9 +147,10 @@ export function PreviewPanel({ activeTool }: PreviewPanelProps) {
             <motion.div
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800/90 backdrop-blur-sm border border-white/10 text-xs text-zinc-300"
+              className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-sm border text-xs"
+              style={{ background: "var(--kt-bg-surface)", borderColor: "var(--kt-border)", color: "var(--kt-text-secondary)" }}
             >
-              <svg className="w-3.5 h-3.5 text-amber-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" style={{ color: "var(--kt-accent)" }}>
                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
               Audio blocked by browser — open in Chrome for sound
@@ -162,7 +163,8 @@ export function PreviewPanel({ activeTool }: PreviewPanelProps) {
               whileTap={{ scale: 0.92 }}
               onClick={togglePlayAction}
               disabled={duration === 0}
-              className="w-10 h-10 rounded-full bg-white/90 hover:bg-white text-zinc-900 flex items-center justify-center shadow-lg transition-colors"
+              className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors"
+              style={{ background: "var(--kt-text-primary)", color: "var(--kt-bg-base)" }}
             >
               {isPlaying ? (
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -178,7 +180,8 @@ export function PreviewPanel({ activeTool }: PreviewPanelProps) {
             <motion.button
               whileTap={{ scale: 0.92 }}
               onClick={handleMuteToggle}
-              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center shadow-lg transition-colors backdrop-blur-sm"
+              className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors backdrop-blur-sm"
+              style={{ background: "var(--kt-bg-subtle-hover)", color: "var(--kt-text-primary)" }}
               title={isMuted ? "Unmute" : "Mute"}
             >
               {isMuted ? (
@@ -201,16 +204,17 @@ export function PreviewPanel({ activeTool }: PreviewPanelProps) {
         >
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex flex-col items-center gap-3 px-8 py-6 rounded-xl border border-dashed border-zinc-600 hover:border-zinc-400 hover:bg-white/5 transition-colors cursor-pointer group"
+            className="flex flex-col items-center gap-3 px-8 py-6 rounded-xl border border-dashed transition-colors cursor-pointer group"
+            style={{ borderColor: "var(--kt-border-strong)" }}
           >
-            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors">
-              <svg className="w-6 h-6 text-zinc-300" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center transition-colors" style={{ background: "var(--kt-bg-subtle)" }}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" style={{ color: "var(--kt-text-secondary)" }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
             </div>
             <div className="text-center">
-              <p className="text-sm font-medium text-zinc-200">Import a video</p>
-              <p className="text-xs text-zinc-500 mt-0.5">or drag and drop anywhere</p>
+              <p className="text-sm font-medium" style={{ color: "var(--kt-text-primary)" }}>Import a video</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--kt-text-muted)" }}>or drag and drop anywhere</p>
             </div>
           </button>
           <input

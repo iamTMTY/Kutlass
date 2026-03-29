@@ -228,15 +228,15 @@ export function TrimPanel() {
   return (
     <div
       ref={containerRef}
-      className="shrink-0 relative border-t border-white/[0.06] bg-[#1a1a1a] overflow-hidden select-none"
-      style={{ height: TOTAL_H }}
+      className="shrink-0 relative border-t overflow-hidden select-none"
+      style={{ height: TOTAL_H, borderColor: "var(--kt-border)", background: "var(--kt-bg-panel)" }}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
       {/* Empty state — shown inside the container so containerRef is always attached */}
       {(!clip || containerWidth === 0) && (
         <div className="flex items-center justify-center" style={{ height: TOTAL_H }}>
-          <p className="text-xs text-zinc-600">
+          <p className="text-xs" style={{ color: "var(--kt-text-faint)" }}>
             {clips.length === 0 ? "Import a video to trim" : "Loading…"}
           </p>
         </div>
@@ -252,9 +252,9 @@ export function TrimPanel() {
           >
             {rulerTicks.map(({ t, isMajor }) => (
               <div key={t} className="absolute top-0 flex flex-col" style={{ left: toX(t) }}>
-                <div className={`w-px ${isMajor ? "h-2.5 bg-zinc-500" : "h-1.5 bg-zinc-700"}`} />
+                <div className={`w-px ${isMajor ? "h-2.5" : "h-1.5"}`} style={{ background: isMajor ? "var(--kt-tick-major)" : "var(--kt-tick-minor)" }} />
                 {isMajor && (
-                  <span className="text-[9px] text-zinc-500 ml-1 leading-none tabular-nums">
+                  <span className="text-[9px] ml-1 leading-none tabular-nums" style={{ color: "var(--kt-text-muted)" }}>
                     {formatTime(t)}
                   </span>
                 )}
@@ -278,13 +278,13 @@ export function TrimPanel() {
                     alt=""
                     className="h-full flex-1 object-cover"
                     draggable={false}
-                    style={{ filter: "brightness(0.4)" }}
+                    style={{ filter: `brightness(var(--kt-dimmed-thumb))` }}
                   />
                 ))}
               </div>
             ) : (
-              <div className="w-full h-full bg-zinc-900 flex items-center justify-center pointer-events-none">
-                <div className="w-4 h-4 border-2 border-zinc-600 border-t-zinc-400 rounded-full animate-spin" />
+              <div className="w-full h-full flex items-center justify-center pointer-events-none" style={{ background: "var(--kt-bg-surface)" }}>
+                <div className="w-4 h-4 border-2 rounded-full animate-spin" style={{ borderColor: "var(--kt-spinner-border)", borderTopColor: "var(--kt-spinner-top)" }} />
               </div>
             )}
 
@@ -315,15 +315,15 @@ export function TrimPanel() {
                       left: selLeft,
                       width: selWidth,
                       height: STRIP_HEIGHT,
-                      border: "2px solid rgba(251,191,36,0.9)",
+                      border: "2px solid var(--kt-accent-strong-border)",
                       borderRadius: 2,
                     }}
                   />
 
                   {/* Left trim handle */}
                   <div
-                    className="absolute top-0 bottom-0 flex items-center justify-center bg-amber-400 cursor-w-resize rounded-l"
-                    style={{ left: selLeft, width: HANDLE_W, zIndex: 10 }}
+                    className="absolute top-0 bottom-0 flex items-center justify-center cursor-w-resize rounded-l"
+                    style={{ left: selLeft, width: HANDLE_W, zIndex: 10, background: "var(--kt-accent)" }}
                     onPointerDown={(e) => beginDrag(e, "trimStart")}
                   >
                     <div className="flex gap-0.5 pointer-events-none">
@@ -334,8 +334,8 @@ export function TrimPanel() {
 
                   {/* Right trim handle */}
                   <div
-                    className="absolute top-0 bottom-0 flex items-center justify-center bg-amber-400 cursor-e-resize rounded-r"
-                    style={{ left: selLeft + selWidth - HANDLE_W, width: HANDLE_W, zIndex: 10 }}
+                    className="absolute top-0 bottom-0 flex items-center justify-center cursor-e-resize rounded-r"
+                    style={{ left: selLeft + selWidth - HANDLE_W, width: HANDLE_W, zIndex: 10, background: "var(--kt-accent)" }}
                     onPointerDown={(e) => beginDrag(e, "trimEnd")}
                   >
                     <div className="flex gap-0.5 pointer-events-none">
@@ -346,14 +346,14 @@ export function TrimPanel() {
 
                   {/* Trim time labels */}
                   <div
-                    className="absolute pointer-events-none text-[9px] font-semibold tabular-nums text-white bg-black/60 px-1 rounded"
-                    style={{ left: selLeft + HANDLE_W + 2, top: 2 }}
+                    className="absolute pointer-events-none text-[9px] font-semibold tabular-nums px-1 rounded"
+                    style={{ left: selLeft + HANDLE_W + 2, top: 2, color: "var(--kt-badge-text)", background: "var(--kt-badge-bg)" }}
                   >
                     {formatTime(clip.trimIn)}
                   </div>
                   <div
-                    className="absolute pointer-events-none text-[9px] font-semibold tabular-nums text-white bg-black/60 px-1 rounded"
-                    style={{ left: selLeft + selWidth - HANDLE_W - 36, top: 2 }}
+                    className="absolute pointer-events-none text-[9px] font-semibold tabular-nums px-1 rounded"
+                    style={{ left: selLeft + selWidth - HANDLE_W - 36, top: 2, color: "var(--kt-badge-text)", background: "var(--kt-badge-bg)" }}
                   >
                     {formatTime(clip.trimOut)}
                   </div>
@@ -368,12 +368,12 @@ export function TrimPanel() {
             style={{ left: toX(localSourceTime), bottom: 0 }}
           >
             <div
-              className="absolute w-px bg-white/80"
-              style={{ top: RULER_H - 2, bottom: 0, left: 0, transform: "translateX(-50%)" }}
+              className="absolute w-px"
+              style={{ top: RULER_H - 2, bottom: 0, left: 0, transform: "translateX(-50%)", background: "var(--kt-text-primary)" }}
             />
             <div
-              className="absolute -translate-x-1/2 bg-zinc-900 text-white border border-white/20 rounded px-1.5 py-0.5 text-[10px] font-semibold tabular-nums cursor-col-resize pointer-events-auto"
-              style={{ top: 0 }}
+              className="absolute -translate-x-1/2 border rounded px-1.5 py-0.5 text-[10px] font-semibold tabular-nums cursor-col-resize pointer-events-auto"
+              style={{ top: 0, background: "var(--kt-time-badge-bg)", color: "var(--kt-text-primary)", borderColor: "var(--kt-time-badge-border)" }}
               onPointerDown={(e) => beginDrag(e, "scrub")}
             >
               {formatTime(localSourceTime)}
@@ -385,15 +385,15 @@ export function TrimPanel() {
                 width: 0, height: 0,
                 borderLeft: "5px solid transparent",
                 borderRight: "5px solid transparent",
-                borderTop: "6px solid rgba(255,255,255,0.8)",
+                borderTop: "6px solid var(--kt-text-primary)",
               }}
             />
           </div>
 
           {/* Duration badge */}
           <div
-            className="absolute right-3 pointer-events-none text-[10px] font-semibold tabular-nums text-zinc-400 bg-black/40 px-1.5 py-0.5 rounded"
-            style={{ top: RULER_H + 2 }}
+            className="absolute right-3 pointer-events-none text-[10px] font-semibold tabular-nums px-1.5 py-0.5 rounded"
+            style={{ top: RULER_H + 2, color: "var(--kt-text-tertiary)", background: "var(--kt-badge-bg)" }}
           >
             {formatTime(clip.trimOut - clip.trimIn)} / {formatTime(clip.sourceDuration)}
           </div>

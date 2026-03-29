@@ -93,9 +93,9 @@ export function FilterPanel() {
   };
 
   return (
-    <div className="shrink-0 border-t border-white/[0.06] bg-[#1a1a1a] px-4 py-3" style={{ height: 120 }}>
+    <div className="shrink-0 border-t px-3 md:px-4 py-3" style={{ borderColor: "var(--kt-border)", background: "var(--kt-bg-panel)" }}>
       <div className="flex items-center justify-between mb-2.5">
-        <span className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">Filters</span>
+        <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-secondary)" }}>Filters</span>
       </div>
       <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
         {PRESETS.map((preset) => (
@@ -108,7 +108,7 @@ export function FilterPanel() {
             <div
               className="w-14 h-10 rounded-md overflow-hidden border-2 transition-colors"
               style={{
-                borderColor: activePreset === preset.id ? "rgb(251,191,36)" : "transparent",
+                borderColor: activePreset === preset.id ? "var(--kt-accent)" : "transparent",
               }}
             >
               <div
@@ -121,7 +121,7 @@ export function FilterPanel() {
             </div>
             <span
               className="text-[10px] leading-none transition-colors"
-              style={{ color: activePreset === preset.id ? "rgb(251,191,36)" : "rgb(113,113,122)" }}
+              style={{ color: activePreset === preset.id ? "var(--kt-accent)" : "var(--kt-text-muted)" }}
             >
               {preset.label}
             </span>

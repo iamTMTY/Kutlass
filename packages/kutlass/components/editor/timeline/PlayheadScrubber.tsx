@@ -39,11 +39,11 @@ export function PlayheadScrubber({ totalHeight }: PlayheadScrubberProps) {
       onPointerMove={onPointerMove}
     >
       {/* Diamond head */}
-      <div className="w-2.5 h-2.5 bg-red-500 rotate-45 mt-0.5 shrink-0" />
+      <div className="w-2.5 h-2.5 rotate-45 mt-0.5 shrink-0" style={{ background: "var(--kt-danger-btn)" }} />
       {/* Stem */}
       <div
-        className="w-px bg-red-500/70"
-        style={{ height: totalHeight }}
+        className="w-px"
+        style={{ background: "var(--kt-danger-btn)", opacity: 0.7, height: totalHeight }}
       />
     </div>
   );

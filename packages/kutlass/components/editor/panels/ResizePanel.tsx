@@ -21,23 +21,18 @@ export function ResizePanel() {
   const updateSettings = useEditorStore((s) => s.updateExportSettings);
 
   return (
-    <div className="shrink-0 border-t border-white/[0.06] bg-[#1a1a1a] px-5 py-3" style={{ height: 120 }}>
-      <div className="flex gap-8">
+    <div className="shrink-0 border-t px-3 md:px-5 py-3 max-h-[160px] overflow-y-auto" style={{ borderColor: "var(--kt-border)", background: "var(--kt-bg-panel)" }}>
+      <div className="flex flex-col md:flex-row gap-3 md:gap-8">
         {/* Resolution */}
         <div className="flex-1">
-          <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Resolution</span>
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Resolution</span>
           <div className="flex gap-1.5 mt-2 flex-wrap">
             {RESOLUTIONS.map((r) => (
               <button
                 key={r.value}
                 onClick={() => updateSettings({ resolution: r.value })}
                 title={r.desc}
-                className="px-2.5 py-1 rounded text-xs font-medium transition-colors"
-                style={{
-                  background: settings.resolution === r.value ? "rgba(251,191,36,0.15)" : "rgba(255,255,255,0.05)",
-                  color: settings.resolution === r.value ? "rgb(251,191,36)" : "rgb(161,161,170)",
-                  border: `1px solid ${settings.resolution === r.value ? "rgba(251,191,36,0.4)" : "transparent"}`,
-                }}
+                className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${settings.resolution === r.value ? "kt-chip-active" : "kt-chip"}`}
               >
                 {r.label}
               </button>
@@ -47,18 +42,13 @@ export function ResizePanel() {
 
         {/* FPS */}
         <div className="flex-1">
-          <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Frame Rate</span>
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Frame Rate</span>
           <div className="flex gap-1.5 mt-2">
             {FPS_OPTIONS.map((f) => (
               <button
                 key={f.value}
                 onClick={() => updateSettings({ fps: f.value })}
-                className="px-2.5 py-1 rounded text-xs font-medium transition-colors"
-                style={{
-                  background: settings.fps === f.value ? "rgba(251,191,36,0.15)" : "rgba(255,255,255,0.05)",
-                  color: settings.fps === f.value ? "rgb(251,191,36)" : "rgb(161,161,170)",
-                  border: `1px solid ${settings.fps === f.value ? "rgba(251,191,36,0.4)" : "transparent"}`,
-                }}
+                className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${settings.fps === f.value ? "kt-chip-active" : "kt-chip"}`}
               >
                 {f.label}
               </button>
@@ -68,18 +58,13 @@ export function ResizePanel() {
 
         {/* Format */}
         <div className="flex-1">
-          <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Format</span>
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>Format</span>
           <div className="flex gap-1.5 mt-2">
             {(["mp4", "webm"] as const).map((fmt) => (
               <button
                 key={fmt}
                 onClick={() => updateSettings({ format: fmt })}
-                className="px-2.5 py-1 rounded text-xs font-medium uppercase transition-colors"
-                style={{
-                  background: settings.format === fmt ? "rgba(251,191,36,0.15)" : "rgba(255,255,255,0.05)",
-                  color: settings.format === fmt ? "rgb(251,191,36)" : "rgb(161,161,170)",
-                  border: `1px solid ${settings.format === fmt ? "rgba(251,191,36,0.4)" : "transparent"}`,
-                }}
+                className={`px-2.5 py-1 rounded text-xs font-medium uppercase transition-colors ${settings.format === fmt ? "kt-chip-active" : "kt-chip"}`}
               >
                 {fmt}
               </button>

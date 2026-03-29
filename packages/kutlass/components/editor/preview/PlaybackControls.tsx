@@ -11,11 +11,11 @@ export function PlaybackControls() {
   const setCurrentTime = useEditorStore((s) => s.setCurrentTime);
 
   return (
-    <div className="flex items-center gap-3 px-4 py-2 bg-zinc-900/80 backdrop-blur-sm border-t border-zinc-800">
+    <div className="flex items-center gap-2 md:gap-3 px-2 md:px-4 py-2 backdrop-blur-sm border-t" style={{ background: "var(--kt-bg-surface)", borderColor: "var(--kt-border-strong)" }}>
       {/* Rewind */}
       <button
         onClick={() => setCurrentTime(0)}
-        className="text-zinc-400 hover:text-white transition-colors"
+        className="kt-btn-ghost transition-colors"
         title="Go to start (Home)"
       >
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -26,7 +26,8 @@ export function PlaybackControls() {
       {/* Play / Pause */}
       <button
         onClick={togglePlay}
-        className="w-9 h-9 rounded-full bg-violet-600 hover:bg-violet-500 flex items-center justify-center transition-colors text-white shadow-lg"
+        className="w-9 h-9 rounded-full flex items-center justify-center transition-colors shadow-lg"
+        style={{ background: "var(--kt-accent-play)", color: "var(--kt-text-primary)" }}
         title="Play/Pause (Space)"
         disabled={duration === 0}
       >
@@ -44,7 +45,7 @@ export function PlaybackControls() {
       {/* Forward to end */}
       <button
         onClick={() => setCurrentTime(duration)}
-        className="text-zinc-400 hover:text-white transition-colors"
+        className="kt-btn-ghost transition-colors"
         title="Go to end (End)"
       >
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -53,18 +54,18 @@ export function PlaybackControls() {
       </button>
 
       {/* Time display */}
-      <div className="ml-2 flex items-center gap-1.5 font-mono text-sm">
-        <span className="text-white">{formatTime(currentTime)}</span>
-        <span className="text-zinc-600">/</span>
-        <span className="text-zinc-500">{formatTime(duration)}</span>
+      <div className="ml-1 md:ml-2 flex items-center gap-1 md:gap-1.5 font-mono text-xs md:text-sm">
+        <span style={{ color: "var(--kt-text-primary)" }}>{formatTime(currentTime)}</span>
+        <span style={{ color: "var(--kt-text-faint)" }}>/</span>
+        <span style={{ color: "var(--kt-text-muted)" }}>{formatTime(duration)}</span>
       </div>
 
       {/* Progress bar */}
-      <div className="flex-1 mx-2">
-        <div className="relative h-1.5 bg-zinc-700 rounded-full cursor-pointer group">
+      <div className="flex-1 mx-1 md:mx-2">
+        <div className="relative h-1.5 rounded-full cursor-pointer group" style={{ background: "var(--kt-slider-track)" }}>
           <div
-            className="h-full bg-violet-500 rounded-full transition-all"
-            style={{ width: duration > 0 ? `${(currentTime / duration) * 100}%` : "0%" }}
+            className="h-full rounded-full transition-all"
+            style={{ width: duration > 0 ? `${(currentTime / duration) * 100}%` : "0%", background: "var(--kt-accent-play-bar)" }}
           />
           <input
             type="range"

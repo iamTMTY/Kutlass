@@ -81,7 +81,7 @@ export function OverlayLayer() {
                 top: `${o.y * 100}%`,
                 transform: "translate(-50%, -50%)",
                 cursor: "move",
-                outline: isSelected ? "2px solid rgba(251,191,36,0.8)" : "none",
+                outline: isSelected ? "2px solid var(--kt-accent)" : "none",
                 outlineOffset: 4,
                 borderRadius: 2,
                 padding: "2px 4px",
@@ -103,8 +103,8 @@ export function OverlayLayer() {
               </span>
               {isSelected && (
                 <button
-                  className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center"
-                  style={{ fontSize: 10, pointerEvents: "auto" }}
+                  className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full flex items-center justify-center"
+                  style={{ background: "var(--kt-danger-btn)", color: "var(--kt-text-primary)", fontSize: 10, pointerEvents: "auto" }}
                   onPointerDown={(e) => e.stopPropagation()}
                   onClick={() => removeOverlay(o.id)}
                 >
@@ -128,7 +128,7 @@ export function OverlayLayer() {
                 top: `${o.y * 100}%`,
                 transform: "translate(-50%, -50%)",
                 cursor: "move",
-                outline: isSelected ? "2px solid rgba(251,191,36,0.8)" : "none",
+                outline: isSelected ? "2px solid var(--kt-accent)" : "none",
                 outlineOffset: 4,
                 borderRadius: 4,
                 lineHeight: 1,
@@ -162,8 +162,8 @@ export function OverlayLayer() {
               )}
               {isSelected && (
                 <button
-                  className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center"
-                  style={{ fontSize: 10, pointerEvents: "auto" }}
+                  className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full flex items-center justify-center"
+                  style={{ background: "var(--kt-danger-btn)", color: "var(--kt-text-primary)", fontSize: 10, pointerEvents: "auto" }}
                   onPointerDown={(e) => e.stopPropagation()}
                   onClick={() => removeOverlay(o.id)}
                 >

@@ -7,6 +7,8 @@ export type Tool = "trim" | "crop" | "finetune" | "filter" | "annotate" | "stick
 interface SidebarProps {
   activeTool: Tool;
   onToolChange: (tool: Tool) => void;
+  /** Render as a horizontal bar (mobile) instead of a vertical sidebar */
+  horizontal?: boolean;
 }
 
 const TOOLS: { id: Tool; label: string; icon: React.ReactNode }[] = [
@@ -81,9 +83,41 @@ const TOOLS: { id: Tool; label: string; icon: React.ReactNode }[] = [
   },
 ];
 
-export function Sidebar({ activeTool, onToolChange }: SidebarProps) {
+export function Sidebar({ activeTool, onToolChange, horizontal }: SidebarProps) {
+  if (horizontal) {
+    return (
+      <div className="flex shrink-0 border-t px-1 py-1 gap-0.5 overflow-x-auto" style={{ borderColor: "var(--kt-border)" }}>
+        {TOOLS.map((tool) => {
+          const isActive = activeTool === tool.id;
+          return (
+            <button
+              key={tool.id}
+              onClick={() => onToolChange(tool.id)}
+              className="relative flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg transition-colors shrink-0"
+              style={{
+                color: isActive ? "var(--kt-text-primary)" : "var(--kt-text-tertiary)",
+                background: isActive ? "var(--kt-bg-subtle-hover)" : "transparent",
+              }}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="sidebar-active-h"
+                  className="absolute inset-0 rounded-lg"
+                  style={{ background: "var(--kt-bg-subtle-hover)" }}
+                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                />
+              )}
+              <span className="relative z-10">{tool.icon}</span>
+              <span className="relative z-10 text-[9px] font-medium leading-none">{tool.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col w-[72px] shrink-0 border-r border-white/[0.06] py-2 gap-1">
+    <div className="flex flex-col w-[72px] shrink-0 border-r py-2 gap-1" style={{ borderColor: "var(--kt-border)" }}>
       {TOOLS.map((tool) => {
         const isActive = activeTool === tool.id;
         return (
@@ -92,14 +126,15 @@ export function Sidebar({ activeTool, onToolChange }: SidebarProps) {
             onClick={() => onToolChange(tool.id)}
             className="relative flex flex-col items-center gap-1 py-2.5 mx-1.5 rounded-xl transition-colors"
             style={{
-              color: isActive ? "white" : "rgb(161 161 170)",
-              background: isActive ? "rgba(255,255,255,0.1)" : "transparent",
+              color: isActive ? "var(--kt-text-primary)" : "var(--kt-text-tertiary)",
+              background: isActive ? "var(--kt-bg-subtle-hover)" : "transparent",
             }}
           >
             {isActive && (
               <motion.div
                 layoutId="sidebar-active"
-                className="absolute inset-0 rounded-xl bg-white/10"
+                className="absolute inset-0 rounded-xl"
+                style={{ background: "var(--kt-bg-subtle-hover)" }}
                 transition={{ type: "spring", stiffness: 400, damping: 35 }}
               />
             )}

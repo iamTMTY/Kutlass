@@ -52,11 +52,12 @@ export function DropZone({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm border-2 border-dashed border-violet-400 rounded-lg pointer-events-none"
+            className="absolute inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm border-2 border-dashed rounded-lg pointer-events-none"
+            style={{ background: "var(--kt-bg-overlay)", borderColor: "var(--kt-accent)" }}
           >
             <div className="text-4xl mb-3">🎬</div>
-            <p className="text-white font-semibold text-lg">Drop video to import</p>
-            <p className="text-white/60 text-sm mt-1">MP4, WebM, MOV, MKV</p>
+            <p className="font-semibold text-lg" style={{ color: "var(--kt-text-primary)" }}>Drop video to import</p>
+            <p className="text-sm mt-1" style={{ color: "var(--kt-text-muted)" }}>MP4, WebM, MOV, MKV</p>
           </motion.div>
         )}
       </AnimatePresence>

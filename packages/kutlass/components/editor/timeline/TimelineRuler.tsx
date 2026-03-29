@@ -48,10 +48,11 @@ export function TimelineRuler({ scrollLeft, containerWidth }: TimelineRulerProps
           style={{ left: timeToPixels(time, zoom) }}
         >
           <div
-            className={`w-px ${isMajor ? "h-4 bg-zinc-500" : "h-2 bg-zinc-700"}`}
+            className={`w-px ${isMajor ? "h-4" : "h-2"}`}
+            style={{ background: isMajor ? "var(--kt-tick-major)" : "var(--kt-tick-minor)" }}
           />
           {isMajor && (
-            <span className="text-[10px] text-zinc-500 ml-1 leading-none mt-0.5">
+            <span className="text-[10px] ml-1 leading-none mt-0.5" style={{ color: "var(--kt-text-muted)" }}>
               {formatTime(time)}
             </span>
           )}

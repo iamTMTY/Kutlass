@@ -25,14 +25,15 @@ export function EffectsPanel() {
           animate={{ width: 256, opacity: 1 }}
           exit={{ width: 0, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="overflow-hidden border-l border-zinc-800 bg-zinc-900"
+          className="overflow-hidden border-l"
+          style={{ borderColor: "var(--kt-border-strong)", background: "var(--kt-bg-surface)" }}
         >
           <div className="w-64 h-full flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-zinc-800">
-              <h3 className="text-sm font-semibold text-white">Effects</h3>
+            <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: "var(--kt-border-strong)" }}>
+              <h3 className="text-sm font-semibold" style={{ color: "var(--kt-text-primary)" }}>Effects</h3>
               <button
                 onClick={() => selectedClipId && resetClipEffects(selectedClipId)}
-                className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                className="text-xs kt-btn-ghost transition-colors"
               >
                 Reset
               </button>
@@ -40,7 +41,7 @@ export function EffectsPanel() {
 
             <div className="flex-1 overflow-y-auto p-4 space-y-5">
               <div>
-                <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-3">
+                <p className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: "var(--kt-text-muted)" }}>
                   Adjustments
                 </p>
                 <div className="space-y-4">
@@ -85,7 +86,7 @@ export function EffectsPanel() {
               </div>
 
               <div>
-                <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-3">
+                <p className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: "var(--kt-text-muted)" }}>
                   Transform
                 </p>
                 <div className="space-y-4">

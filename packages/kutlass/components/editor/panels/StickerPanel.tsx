@@ -54,8 +54,8 @@ export function StickerPanel() {
 
   return (
     <div
-      className="shrink-0 border-t border-white/[0.06] bg-[#1a1a1a] px-4 py-3 overflow-y-auto"
-      style={{ height: 160 }}
+      className="shrink-0 border-t px-3 md:px-4 py-3 overflow-y-auto max-h-[160px]"
+      style={{ borderColor: "var(--kt-border)", background: "var(--kt-bg-panel)" }}
     >
       <div className="flex gap-4 h-full">
         {/* Sticker grid + upload */}
@@ -64,7 +64,8 @@ export function StickerPanel() {
           <div className="mb-2">
             <button
               onClick={() => imageInputRef.current?.click()}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-white/[0.06] hover:bg-white/10 text-zinc-300 border border-white/10 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium kt-btn-subtle border transition-colors"
+              style={{ borderColor: "var(--kt-border-input)" }}
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -82,7 +83,7 @@ export function StickerPanel() {
 
           {STICKER_GROUPS.map((group) => (
             <div key={group.label} className="mb-2">
-              <span className="text-[10px] font-semibold text-zinc-600 uppercase tracking-wider block mb-1">
+              <span className="text-[10px] font-semibold uppercase tracking-wider block mb-1" style={{ color: "var(--kt-text-faint)" }}>
                 {group.label}
               </span>
               <div className="flex flex-wrap gap-1">
@@ -90,7 +91,7 @@ export function StickerPanel() {
                   <button
                     key={emoji}
                     onClick={() => handleAddEmoji(emoji)}
-                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-white/10 transition-colors text-lg"
+                    className="w-8 h-8 flex items-center justify-center rounded kt-emoji-btn transition-colors text-lg"
                     title={`Add ${emoji}`}
                   >
                     {emoji}
@@ -101,21 +102,22 @@ export function StickerPanel() {
           ))}
         </div>
 
-        {/* Active stickers */}
-        <div className="w-36 shrink-0 flex flex-col gap-1.5">
-          <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">
+        {/* Active stickers — hidden on mobile */}
+        <div className="hidden md:flex w-36 shrink-0 flex-col gap-1.5">
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--kt-text-muted)" }}>
             Active ({stickerOverlays.length})
           </span>
           <div className="flex flex-col gap-1 overflow-y-auto">
             {stickerOverlays.length === 0 && (
-              <span className="text-[11px] text-zinc-600">Click to add stickers</span>
+              <span className="text-[11px]" style={{ color: "var(--kt-text-faint)" }}>Click to add stickers</span>
             )}
             {stickerOverlays.map((o) => {
               if (o.type !== "sticker") return null;
               return (
                 <div
                   key={o.id}
-                  className="flex items-center justify-between px-2 py-1 rounded bg-white/[0.04]"
+                  className="flex items-center justify-between px-2 py-1 rounded"
+                  style={{ background: "var(--kt-bg-subtle)" }}
                 >
                   {o.imageUrl ? (
                     <img src={o.imageUrl} alt="" className="w-6 h-6 object-cover rounded" />
@@ -124,7 +126,8 @@ export function StickerPanel() {
                   )}
                   <button
                     onClick={() => removeOverlay(o.id)}
-                    className="text-zinc-600 hover:text-red-400 transition-colors"
+                    className="transition-colors"
+                    style={{ color: "var(--kt-text-faint)" }}
                   >
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />

@@ -53,7 +53,7 @@ export function Editor() {
   return (
     <div
       className="relative flex flex-col w-full h-full overflow-hidden rounded-xl"
-      style={{ background: "#1c1c1c" }}
+      style={{ background: "var(--kt-bg-base)" }}
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
@@ -64,26 +64,28 @@ export function Editor() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/70 backdrop-blur-sm rounded-xl"
+            className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-4 backdrop-blur-sm rounded-xl"
+            style={{ background: "var(--kt-bg-overlay)" }}
           >
             {isExportDone ? (
               <>
-                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-emerald-500/20">
-                  <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <div className="w-10 h-10 flex items-center justify-center rounded-full" style={{ background: "var(--kt-success-bg)" }}>
+                  <svg className="w-5 h-5" style={{ color: "var(--kt-success)" }} fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <p className="text-sm font-semibold text-white">Export complete</p>
+                <p className="text-sm font-semibold" style={{ color: "var(--kt-text-primary)" }}>Export complete</p>
                 <div className="flex items-center gap-3 mt-1">
                   <button
                     onClick={() => { downloadExport(outputUrl!); resetExport(); }}
-                    className="px-5 h-9 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-semibold transition-colors"
+                    className="px-5 h-9 rounded-lg text-sm font-semibold transition-colors"
+                    style={{ background: "var(--kt-success-btn)", color: "var(--kt-text-primary)" }}
                   >
                     Download
                   </button>
                   <button
                     onClick={resetExport}
-                    className="px-5 h-9 rounded-lg bg-zinc-700 hover:bg-zinc-600 text-zinc-200 text-sm font-medium transition-colors"
+                    className="kt-btn-cancel px-5 h-9 rounded-lg text-sm font-medium transition-colors"
                   >
                     Cancel
                   </button>
@@ -91,18 +93,19 @@ export function Editor() {
               </>
             ) : (
               <>
-                <p className="text-sm font-semibold text-white">Exporting…</p>
-                <div className="w-64 h-1.5 bg-zinc-700 rounded-full overflow-hidden">
+                <p className="text-sm font-semibold" style={{ color: "var(--kt-text-primary)" }}>Exporting…</p>
+                <div className="w-64 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--kt-slider-track)" }}>
                   <motion.div
-                    className="h-full bg-amber-400 rounded-full"
+                    className="h-full rounded-full"
+                    style={{ background: "var(--kt-accent)" }}
                     animate={{ width: `${exportProgress}%` }}
                     transition={{ duration: 0.3 }}
                   />
                 </div>
-                <p className="text-xs text-zinc-400 tabular-nums">{exportProgress}%</p>
+                <p className="text-xs tabular-nums" style={{ color: "var(--kt-text-tertiary)" }}>{exportProgress}%</p>
                 <button
                   onClick={cancelExport}
-                  className="mt-1 px-5 h-9 rounded-lg bg-zinc-700 hover:bg-zinc-600 text-zinc-200 text-sm font-medium transition-colors"
+                  className="kt-btn-cancel mt-1 px-5 h-9 rounded-lg text-sm font-medium transition-colors"
                 >
                   Cancel
                 </button>
@@ -116,14 +119,21 @@ export function Editor() {
       <TopBar />
 
       {/* Body */}
-      <div className="flex flex-1 overflow-hidden min-h-0">
-        {/* Left sidebar */}
-        <Sidebar activeTool={activeTool} onToolChange={handleToolChange} />
+      <div className="flex flex-1 overflow-hidden min-h-0 md:flex-row flex-col">
+        {/* Left sidebar — hidden on mobile, shown on md+ */}
+        <div className="hidden md:flex">
+          <Sidebar activeTool={activeTool} onToolChange={handleToolChange} />
+        </div>
 
         {/* Main area */}
         <div className="flex flex-col flex-1 overflow-hidden min-w-0">
           {/* Video preview — receives activeTool for crop overlay */}
           <PreviewPanel activeTool={activeTool} />
+
+          {/* Horizontal tool bar — shown on mobile only */}
+          <div className="flex md:hidden">
+            <Sidebar activeTool={activeTool} onToolChange={handleToolChange} horizontal />
+          </div>
 
           {/* Bottom panel — swaps based on active tool */}
           <AnimatePresence mode="wait" initial={false}>

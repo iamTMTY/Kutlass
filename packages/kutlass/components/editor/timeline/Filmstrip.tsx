@@ -49,13 +49,13 @@ async function extractWaveform(file: File, numSamples: number): Promise<Float32A
   }
 }
 
-function drawWaveform(canvas: HTMLCanvasElement, peaks: Float32Array, color = "rgba(251,191,36,0.55)") {
+function drawWaveform(canvas: HTMLCanvasElement, peaks: Float32Array, color?: string) {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const h = canvas.height;
   const mid = h / 2;
-  ctx.fillStyle = color;
+  ctx.fillStyle = color ?? (getComputedStyle(canvas).getPropertyValue("--kt-accent").trim() || "rgba(251,191,36,0.55)");
   for (let i = 0; i < peaks.length; i++) {
     const amp = peaks[i] * mid;
     ctx.fillRect(i, mid - amp, 1, amp * 2 || 1);
@@ -308,8 +308,8 @@ export function Filmstrip() {
   return (
     <div
       ref={containerRef}
-      className="shrink-0 relative border-t border-white/[0.06] bg-[#1a1a1a] overflow-hidden select-none"
-      style={{ height: TOTAL_H }}
+      className="shrink-0 relative border-t overflow-hidden select-none"
+      style={{ borderColor: "var(--kt-border)", background: "var(--kt-bg-deep)", height: TOTAL_H }}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
@@ -325,9 +325,9 @@ export function Filmstrip() {
               const left = pxOf(t);
               return (
                 <div key={t} className="absolute top-0 flex flex-col" style={{ left }}>
-                  <div className={`w-px ${isMajor ? "h-2.5 bg-zinc-500" : "h-1.5 bg-zinc-700"}`} />
+                  <div className={`w-px ${isMajor ? "h-2.5" : "h-1.5"}`} style={{ background: isMajor ? "var(--kt-tick-major)" : "var(--kt-tick-minor)" }} />
                   {isMajor && (
-                    <span className="text-[9px] text-zinc-500 ml-1 leading-none tabular-nums">
+                    <span className="text-[9px] ml-1 leading-none tabular-nums" style={{ color: "var(--kt-text-muted)" }}>
                       {formatTime(t)}
                     </span>
                   )}
@@ -362,7 +362,7 @@ export function Filmstrip() {
                     left,
                     width,
                     height: STRIP_HEIGHT,
-                    border: "2px solid rgba(251,191,36,0.8)",
+                    border: "2px solid var(--kt-accent-strong-border)",
                   }}
                 >
                   {/* Thumbnail content */}
@@ -375,13 +375,13 @@ export function Filmstrip() {
                   ) : placeholder ? (
                     <img src={placeholder} alt="" className="w-full h-full object-cover pointer-events-none" draggable={false} />
                   ) : (
-                    <div className="w-full h-full bg-zinc-800 flex items-center justify-center pointer-events-none">
-                      <div className="w-4 h-4 border-2 border-zinc-600 border-t-zinc-400 rounded-full animate-spin" />
+                    <div className="w-full h-full flex items-center justify-center pointer-events-none" style={{ background: "var(--kt-bg-surface)" }}>
+                      <div className="w-4 h-4 border-2 rounded-full animate-spin" style={{ borderColor: "var(--kt-spinner-border)", borderTopColor: "var(--kt-spinner-top)" }} />
                     </div>
                   )}
 
                   {/* Clip name */}
-                  <div className="absolute top-1 left-4 text-[9px] text-white/70 font-medium truncate max-w-[60%] pointer-events-none leading-none bg-black/30 px-1 rounded">
+                  <div className="absolute top-1 left-4 text-[9px] font-medium truncate max-w-[60%] pointer-events-none leading-none px-1 rounded" style={{ color: "var(--kt-text-secondary)", background: "var(--kt-bg-overlay)" }}>
                     {clip.name}
                   </div>
 
@@ -394,20 +394,20 @@ export function Filmstrip() {
 
                   {/* ── Left trim handle ── */}
                   <div
-                    className="absolute left-0 top-0 bottom-0 w-3 bg-amber-400/90 cursor-w-resize flex items-center justify-center"
-                    style={{ zIndex: 3 }}
+                    className="absolute left-0 top-0 bottom-0 w-3 cursor-w-resize flex items-center justify-center"
+                    style={{ zIndex: 3, background: "var(--kt-accent)" }}
                     onPointerDown={(e) => startTrimStart(e, clip)}
                   >
-                    <div className="w-0.5 h-5 bg-amber-900/50 rounded-full pointer-events-none" />
+                    <div className="w-0.5 h-5 rounded-full pointer-events-none" style={{ background: "var(--kt-bg-overlay)" }} />
                   </div>
 
                   {/* ── Right trim handle ── */}
                   <div
-                    className="absolute right-0 top-0 bottom-0 w-3 bg-amber-400/90 cursor-e-resize flex items-center justify-center"
-                    style={{ zIndex: 3 }}
+                    className="absolute right-0 top-0 bottom-0 w-3 cursor-e-resize flex items-center justify-center"
+                    style={{ zIndex: 3, background: "var(--kt-accent)" }}
                     onPointerDown={(e) => startTrimEnd(e, clip)}
                   >
-                    <div className="w-0.5 h-5 bg-amber-900/50 rounded-full pointer-events-none" />
+                    <div className="w-0.5 h-5 rounded-full pointer-events-none" style={{ background: "var(--kt-bg-overlay)" }} />
                   </div>
                 </div>
               );
@@ -433,7 +433,7 @@ export function Filmstrip() {
                   />
                   {!waveforms[clip.id] && (
                     <div className="absolute inset-0 flex items-center pointer-events-none">
-                      <div className="w-full h-px bg-zinc-700" />
+                      <div className="w-full h-px" style={{ background: "var(--kt-border)" }} />
                     </div>
                   )}
                 </div>
@@ -448,14 +448,14 @@ export function Filmstrip() {
           >
             {/* Time badge — the only scrub affordance in the playhead */}
             <div
-              className="absolute -translate-x-1/2 bg-zinc-900 text-white border border-white/20 rounded px-1.5 py-0.5 text-[10px] font-semibold tabular-nums pointer-events-auto cursor-col-resize"
-              style={{ top: 0 }}
+              className="absolute -translate-x-1/2 border rounded px-1.5 py-0.5 text-[10px] font-semibold tabular-nums pointer-events-auto cursor-col-resize"
+              style={{ background: "var(--kt-time-badge-bg)", color: "var(--kt-text-primary)", borderColor: "var(--kt-time-badge-border)", top: 0 }}
               onPointerDown={startScrub}
             >
               {formatTime(currentTime)}
             </div>
             {/* Vertical line */}
-            <div className="absolute w-px bg-white/80" style={{ top: 14, bottom: 0, left: 0, transform: "translateX(-50%)" }} />
+            <div className="absolute w-px" style={{ background: "var(--kt-text-primary)", opacity: 0.8, top: 14, bottom: 0, left: 0, transform: "translateX(-50%)" }} />
             {/* Triangle head */}
             <div
               className="absolute -translate-x-1/2"
@@ -464,7 +464,7 @@ export function Filmstrip() {
                 width: 0, height: 0,
                 borderLeft: "5px solid transparent",
                 borderRight: "5px solid transparent",
-                borderTop: "6px solid rgba(255,255,255,0.8)",
+                borderTop: "6px solid var(--kt-text-primary)",
               }}
             />
           </div>

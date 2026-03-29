@@ -95,10 +95,10 @@ export function ClipBlock({ clip }: ClipBlockProps) {
         left,
         width: Math.max(width, 4),
         background: isSelected
-          ? "linear-gradient(to bottom, #7c3aed, #5b21b6)"
-          : "linear-gradient(to bottom, #4c1d95, #3b1375)",
-        borderWidth: isSelected ? 1 : 1,
-        borderColor: isSelected ? "#a78bfa" : "#6d28d9",
+          ? "linear-gradient(to bottom, var(--kt-accent-play), var(--kt-accent-play-hover))"
+          : "linear-gradient(to bottom, var(--kt-accent-play-hover), var(--kt-bg-deep))",
+        borderWidth: 1,
+        borderColor: isSelected ? "var(--kt-accent-play-bar)" : "var(--kt-accent-play)",
         borderStyle: "solid",
       }}
       onPointerDown={(e) => onPointerDown(e, "move")}
@@ -107,7 +107,7 @@ export function ClipBlock({ clip }: ClipBlockProps) {
     >
       {/* Clip label */}
       <div className="absolute inset-x-2 top-1 pointer-events-none">
-        <p className="text-[11px] text-white/80 truncate font-medium leading-tight">
+        <p className="text-[11px] truncate font-medium leading-tight" style={{ color: "var(--kt-text-primary)" }}>
           {clip.name}
         </p>
       </div>
@@ -119,7 +119,7 @@ export function ClipBlock({ clip }: ClipBlockProps) {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
       >
-        <div className="w-0.5 h-4 bg-white/60 rounded-full" />
+        <div className="w-0.5 h-4 rounded-full" style={{ background: "var(--kt-text-faint)" }} />
       </div>
 
       {/* Right trim handle */}
@@ -129,7 +129,7 @@ export function ClipBlock({ clip }: ClipBlockProps) {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
       >
-        <div className="w-0.5 h-4 bg-white/60 rounded-full" />
+        <div className="w-0.5 h-4 rounded-full" style={{ background: "var(--kt-text-faint)" }} />
       </div>
     </div>
   );
