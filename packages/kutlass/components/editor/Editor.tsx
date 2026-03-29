@@ -78,7 +78,7 @@ export function Editor() {
                 <div className="flex items-center gap-3 mt-1">
                   <button
                     onClick={() => { downloadExport(outputUrl!); resetExport(); }}
-                    className="px-5 h-9 rounded-lg text-sm font-semibold transition-colors"
+                    className="px-5 h-9 rounded-lg text-sm font-semibold transition-colors cursor-pointer"
                     style={{ background: "var(--kt-success-btn)", color: "var(--kt-text-primary)" }}
                   >
                     Download

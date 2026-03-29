@@ -93,11 +93,8 @@ export function Sidebar({ activeTool, onToolChange, horizontal }: SidebarProps) 
             <button
               key={tool.id}
               onClick={() => onToolChange(tool.id)}
-              className="relative flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg transition-colors shrink-0"
-              style={{
-                color: isActive ? "var(--kt-text-primary)" : "var(--kt-text-tertiary)",
-                background: isActive ? "var(--kt-bg-subtle-hover)" : "transparent",
-              }}
+              className="relative flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg transition-colors shrink-0 kt-tool-btn"
+              style={isActive ? { color: "var(--kt-text-primary)", background: "var(--kt-bg-subtle-hover)" } : undefined}
             >
               {isActive && (
                 <motion.div
@@ -124,11 +121,8 @@ export function Sidebar({ activeTool, onToolChange, horizontal }: SidebarProps) 
           <button
             key={tool.id}
             onClick={() => onToolChange(tool.id)}
-            className="relative flex flex-col items-center gap-1 py-2.5 mx-1.5 rounded-xl transition-colors"
-            style={{
-              color: isActive ? "var(--kt-text-primary)" : "var(--kt-text-tertiary)",
-              background: isActive ? "var(--kt-bg-subtle-hover)" : "transparent",
-            }}
+            className="relative flex flex-col items-center gap-1 py-2.5 mx-1.5 rounded-xl transition-colors kt-tool-btn"
+            style={isActive ? { color: "var(--kt-text-primary)", background: "var(--kt-bg-subtle-hover)" } : undefined}
           >
             {isActive && (
               <motion.div

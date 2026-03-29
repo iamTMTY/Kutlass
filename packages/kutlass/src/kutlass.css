@@ -161,6 +161,7 @@
 .kt-btn-ghost {
   color: var(--kt-text-tertiary);
   background: transparent;
+  cursor: pointer;
   transition: color 0.15s, background 0.15s;
 }
 .kt-btn-ghost:hover {
@@ -175,6 +176,7 @@
 .kt-btn-subtle {
   color: var(--kt-text-secondary);
   background: var(--kt-bg-subtle);
+  cursor: pointer;
   transition: color 0.15s, background 0.15s;
 }
 .kt-btn-subtle:hover {
@@ -185,6 +187,7 @@
 .kt-btn-accent {
   color: var(--kt-accent-text);
   background: var(--kt-accent);
+  cursor: pointer;
   transition: background 0.15s;
 }
 .kt-btn-accent:hover {
@@ -198,6 +201,7 @@
 .kt-btn-import {
   color: var(--kt-text-secondary);
   background: var(--kt-import-btn-bg);
+  cursor: pointer;
   transition: background 0.15s;
 }
 .kt-btn-import:hover {
@@ -207,25 +211,44 @@
 .kt-btn-cancel {
   color: var(--kt-cancel-btn-text);
   background: var(--kt-cancel-btn-bg);
+  cursor: pointer;
   transition: background 0.15s;
 }
 .kt-btn-cancel:hover {
   background: var(--kt-cancel-btn-hover);
 }
 
+.kt-tool-btn {
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s;
+}
+.kt-tool-btn:hover {
+  color: var(--kt-text-primary) !important;
+  background-color: var(--kt-bg-subtle-hover) !important;
+}
+
 .kt-chip {
   color: var(--kt-text-tertiary);
   background: var(--kt-bg-subtle);
   border: 1px solid transparent;
+  cursor: pointer;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.kt-chip:hover {
+  background: var(--kt-bg-subtle-hover);
 }
 .kt-chip-active {
   color: var(--kt-accent);
   background: var(--kt-accent-subtle-bg);
   border: 1px solid var(--kt-accent-subtle-border);
+  cursor: pointer;
+}
+.kt-chip-active:hover {
+  background: var(--kt-accent-subtle-bg);
 }
 
 .kt-emoji-btn {
+  cursor: pointer;
   transition: background 0.15s;
 }
 .kt-emoji-btn:hover {

@@ -16,7 +16,7 @@ const ACCENTS = [
 ];
 
 export function EditorDemo({ theme }: { theme: "dark" | "light" }) {
-  const [accent, setAccent] = useState<string | undefined>(undefined);
+  const [accent, setAccent] = useState<string>(ACCENTS[0].color);
 
   return (
     <div>
@@ -24,7 +24,7 @@ export function EditorDemo({ theme }: { theme: "dark" | "light" }) {
         {ACCENTS.map((a) => (
           <button
             key={a.color}
-            onClick={() => setAccent(accent === a.color ? undefined : a.color)}
+            onClick={() => setAccent(a.color)}
             title={a.label}
             className="w-5 h-5 rounded-full transition-transform hover:scale-110"
             style={{
@@ -34,7 +34,7 @@ export function EditorDemo({ theme }: { theme: "dark" | "light" }) {
           />
         ))}
       </div>
-      <div className="w-full aspect-video max-h-[700px] rounded-2xl overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-white/[0.08]">
+      <div className="w-full aspect-video max-h-[700px] rounded-2xl overflow-hidden border" style={{ borderColor: theme === "dark" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.1)" }}>
         <Kutlass theme={theme} accent={accent} />
       </div>
     </div>
