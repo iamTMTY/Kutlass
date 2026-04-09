@@ -144,7 +144,7 @@ Kutlass uses FFmpeg compiled to WebAssembly for video encoding. You need to:
 cp node_modules/kutlass/public/ffmpeg/* public/ffmpeg/
 ```
 
-2. Set the required cross-origin headers on your server. FFmpeg WASM requires `SharedArrayBuffer`, which needs these headers:
+2. Set the required cross-origin headers. FFmpeg WASM requires `SharedArrayBuffer`, which needs these response headers on every page that loads the editor:
 
 ```
 Cross-Origin-Opener-Policy: same-origin
@@ -152,7 +152,9 @@ Cross-Origin-Embedder-Policy: require-corp
 Cross-Origin-Resource-Policy: cross-origin
 ```
 
-**Next.js example** (`next.config.ts`):
+How you set these depends on your setup:
+
+**Next.js** (`next.config.ts`):
 
 ```ts
 const nextConfig = {
@@ -169,6 +171,60 @@ const nextConfig = {
     ];
   },
 };
+```
+
+**Vite** (`vite.config.ts`):
+
+```ts
+export default defineConfig({
+  server: {
+    headers: {
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Resource-Policy": "cross-origin",
+    },
+  },
+});
+```
+
+**Nginx**:
+
+```nginx
+add_header Cross-Origin-Opener-Policy same-origin;
+add_header Cross-Origin-Embedder-Policy require-corp;
+add_header Cross-Origin-Resource-Policy cross-origin;
+```
+
+**Vercel** (`vercel.json`):
+
+```json
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "cross-origin" }
+      ]
+    }
+  ]
+}
+```
+
+**Netlify** (`_headers`):
+
+```
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Resource-Policy: cross-origin
+```
+
+**Static hosting without header support** (GitHub Pages, etc.) — use [`coi-serviceworker`](https://www.npmjs.com/package/coi-serviceworker) to inject the headers client-side via a service worker. Install it with `npm install coi-serviceworker`, copy the script to your public directory, and add it before any other scripts:
+
+```html
+<script src="coi-serviceworker.js"></script>
 ```
 
 ## Props
