@@ -1,6 +1,6 @@
 {
   "name": "kutlass",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A fully client-side browser video editor React component",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "build": "tsup && tsc -p tsconfig.lib.json && npx @tailwindcss/cli -i src/kutlass.css -o dist/kutlass.css --minify",
+    "test": "vitest run",
     "lint": "eslint"
   },
   "peerDependencies": {
@@ -60,6 +61,7 @@
     "tailwindcss": "^4",
     "tsup": "^8.5.1",
     "typescript": "^5",
+    "vitest": "^4.1.4",
     "zundo": "^2.3.0"
   }
 }
