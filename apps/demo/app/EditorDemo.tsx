@@ -34,7 +34,7 @@ export function EditorDemo({ theme }: { theme: "dark" | "light" }) {
           />
         ))}
       </div>
-      <div className="w-full aspect-video max-h-[700px] rounded-2xl overflow-hidden border" style={{ borderColor: theme === "dark" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.1)" }}>
+      <div className="w-full aspect-video h-175 max-h-[80vh] rounded-2xl overflow-hidden border" style={{ borderColor: theme === "dark" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.1)" }}>
         <Kutlass theme={theme} accent={accent} />
       </div>
     </div>
